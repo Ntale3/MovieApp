@@ -32,17 +32,3 @@ export default fetchPopularMovies;
 
 
 
-
-// const url = 'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc';
-// const options = {
-//   method: 'GET',
-//   headers: {
-//     accept: 'application/json',
-//     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlOTE3NDUzN2ZhN2VjMmFhNDViZTc5MjFjMzAzOTNkMyIsIm5iZiI6MTc0NjQ0NjAzMS40NzksInN1YiI6IjY4MThhNmNmZTcwMTNjZWMwODQ4NzgyNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XSQWAeT6v24dMgqFGG1nZfeQTcaPdOPGHb0lO0kmV1g'
-//   }
-// };
-
-// fetch(url, options)
-//   .then(res => res.json())
-//   .then(json => console.log(json))
-//   .catch(err => console.error(err));

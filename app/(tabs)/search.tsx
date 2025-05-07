@@ -7,12 +7,13 @@ import MovieCard from '../components/MovieCard';
 import { icons } from '@/constants/icons';
 import SearchBar from '../components/SearchBar';
 import { useEffect, useState } from 'react';
+import { updateSearchCount } from '@/services/appwrite';
 
 
 const Search = () => {
 
   const router =useRouter();
-  const [searchQuery,setSearchQuery]=useState('')
+  const [searchQuery,setSearchQuery]=useState('');
   
   const{data:movies,
        loading:moviesLoading,
@@ -26,10 +27,11 @@ const Search = () => {
         ,false)
  
         useEffect(()=>{
-
+        
           const timeOutId=setTimeout(async()=>{
             if(searchQuery.trim()){
               await loadMovies()
+             
             }else{
               reset()
             }

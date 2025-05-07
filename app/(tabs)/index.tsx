@@ -12,7 +12,8 @@ export default function Index() {
 
   const router =useRouter();
   
- const{data:movies,
+ const{
+      data:movies,
       loading:moviesLoading,
       errors:movieErrors,
 
@@ -44,9 +45,10 @@ contentContainerStyle={{
       <Text>Error:{movieErrors?.message}</Text>
     ):(
 <View className="flex-1 mt-5">
+  
     <SearchBar
       onPress={()=>router.push("/search")}
-      placeholder="Search for a Movie"
+      placeholder="Search for a Movie"     
     />
 
       <>
