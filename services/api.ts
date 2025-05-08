@@ -29,6 +29,27 @@ const fetchPopularMovies=async({query}:{query:string})=>{
 }
 export default fetchPopularMovies;
 
+export async function fetchMovieDetails(movie_id:string):Promise<MovieDetails>{
+    try{
+        const response=await fetch(`${TMDB_CONFIG.BASE_URL}/movie/${movie_id}?api_key=${TMDB_CONFIG.API_KEY}`,{
+            method:'GET',
+            headers:TMDB_CONFIG.header
+        });
+        
+        if(!response.ok){
+            throw new Error('Failed to fetch movies');
+        }
+        const data= await response.json();
+        return data;
+        
+        
+
+    }catch(error){
+        console.log(error)
+        throw error;
+    }
+}
+
 
 
 
