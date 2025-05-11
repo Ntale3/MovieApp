@@ -1,9 +1,10 @@
 import { icons } from '@/constants/icons';
 import fetchPopularMovies, { fetchMovieDetails } from '@/services/api';
 import useFetch from '@/services/useFetch';
+import { Button } from '@react-navigation/elements';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
-
+import { favoriteMoviesStore } from '@/services/FavoritesStore';
 interface MovieInfoProps{
   label:string;
   value?:string|number|null;
@@ -21,9 +22,16 @@ const MovieInfo=({label,value}:MovieInfoProps)=>(
 const MovieDetails = () => {
   const router =useRouter();
   const {id}=useLocalSearchParams();
-
   const {data:movie,loading}=useFetch(()=>fetchMovieDetails(id as string))
-
+  const data:any=movie;
+  const AddToFavorites=favoriteMoviesStore((state:any)=>state.addToFavoriteMovies);
+  const favorites=favoriteMoviesStore((state:any)=>state.favorites);
+  const removeFromFavoriteMovies=favoriteMoviesStore((state:any)=>state.removeFromFavoriteMovies);
+  const clear=favoriteMoviesStore((state:any)=>state.clear);
+  const favAdd=(data:any)=>{    
+    AddToFavorites(data);  
+   
+  }
  
   return (
     <View className='bg-primary flex-1'>
@@ -53,17 +61,27 @@ const MovieDetails = () => {
         </View>
 
           <View className='flex-row w-[150px] items-center bg-dark-100 px-2 py-1 rounded-md gap-x-1 mt-2 justify-center' >
+              
               <Image 
               source={icons.star}
               className='size-4'
               />
-
               <Text className='text-white font-bold text-sm py-1'>
                 {Math.round(movie?.vote_average??0)}/10 
               </Text>
               <Text className='text-light-200 text-sm font-bold '>
                 ({movie?.vote_count}votes)
-              </Text>
+              </Text>            
+              
+          </View>
+          <View className='mt-3 bg-dark-200 w-[110px]' >
+            <TouchableOpacity>
+           <Text className='text-light-100 p-1 flex items-center
+            justify-center' onPress={()=>favAdd(data)}>
+              AddToFavorites
+            </Text>
+            </TouchableOpacity>
+            
           </View>
             <MovieInfo label='Overview'value={movie?.overview}/>
             <MovieInfo 
@@ -71,7 +89,7 @@ const MovieDetails = () => {
             <View className='flex flex-row justify-between w-1/2'>
             <MovieInfo label='Budget' value={`$${movie?.budget/1_000_000}million`}/>
 
-            <MovieInfo label='Revenue' value={`$${Math.random(movie?.revenue)/1_000_000}`}/>
+            <MovieInfo label='Revenue' value={`$${Math.round(movie?.revenue)/1_000_000}`}/>
 
             </View>
 
