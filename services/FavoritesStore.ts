@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import {persist} from 'zustand/middleware'
+import {persist,createJSONStorage} from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface favoritesState{
@@ -8,9 +8,9 @@ interface favoritesState{
     removeFromFavoriteMovies:(id:number)=>void
 }
 
-export const favoriteMoviesStrore=create<favoritesState>()(
+export const favoriteMoviesStore=create<favoritesState>()(
   
-      (set)=>({
+     persist((set,get)=>({
     favorites:[],
     addToFavoriteMovies:(data)=>set((state)=>({favorites:[...state.favorites,data]})),
     removeFromFavoriteMovies:(id)=>set((state)=>({
@@ -18,6 +18,11 @@ export const favoriteMoviesStrore=create<favoritesState>()(
     }),
 
 )
+    }),
+    {
+       name:'favMovies' ,
+       storage:createJSONStorage(()=>AsyncStorage)
+
     })
 
 );
