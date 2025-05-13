@@ -24,14 +24,8 @@ const MovieDetails = () => {
   const {id}=useLocalSearchParams();
   const {data:movie,loading}=useFetch(()=>fetchMovieDetails(id as string))
   const data:any=movie;
-  const AddToFavorites=favoriteMoviesStore((state:any)=>state.addToFavoriteMovies);
-  const favorites=favoriteMoviesStore((state:any)=>state.favorites);
-  const removeFromFavoriteMovies=favoriteMoviesStore((state:any)=>state.removeFromFavoriteMovies);
-  const clear=favoriteMoviesStore((state:any)=>state.clear);
-  const favAdd=(data:any)=>{    
-    AddToFavorites(data);  
-   
-  }
+  const AddToFavorites=favoriteMoviesStore((state:any)=>state.addToFavoriteMovies);  
+  
  
   return (
     <View className='bg-primary flex-1'>
@@ -77,7 +71,7 @@ const MovieDetails = () => {
           <View className='mt-3 bg-dark-200 w-[110px]' >
             <TouchableOpacity>
            <Text className='text-light-100 p-1 flex items-center
-            justify-center' onPress={()=>favAdd(data)}>
+            justify-center' onPress={()=>AddToFavorites(data)}>
               AddToFavorites
             </Text>
             </TouchableOpacity>

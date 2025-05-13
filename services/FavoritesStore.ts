@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import {persist,createJSONStorage} from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Toast from 'react-native-toast-message';
 interface favoritesState{
     favorites:Movie[],
     addToFavoriteMovies:(data:Movie)=>void,
@@ -20,12 +20,15 @@ export const favoriteMoviesStore=create<favoritesState>()(
         if(existingItem){
             return{
                 favorites:state.favorites
+                
             }
+            
         }
         return {
            favorites: [...state.favorites,data]
+           
         }
-          
+         
     }),
     removeFromFavoriteMovies:(id)=>set((state)=>({
        favorites:state.favorites.filter((data)=>data.id!==id)
